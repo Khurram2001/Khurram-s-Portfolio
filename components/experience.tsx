@@ -14,7 +14,7 @@ const experiences = [
   {
     title: "React Native Developer",
     company: "Crypto Koder",
-    period: "Sep 2025 – Nov 2025",
+    period: "Aug 2025 – Nov 2025",
     description: [
       "Built and maintained an e-commerce mobile application",
       "Implemented responsive and performant UI components",
@@ -24,7 +24,7 @@ const experiences = [
   {
     title: "Freelance Full Stack Developer",
     company: "Self-Employed",
-    period: "Oct 2024 – Present",
+    period: "Jul 2024 – Present",
     description: [
       "Developed multiple web and mobile applications end-to-end",
       "Integrated cloud services and Google Maps APIs",
