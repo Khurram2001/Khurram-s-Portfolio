@@ -10,7 +10,7 @@ export function Skills() {
     },
     {
       category: "Backend",
-      skills: ["Node.js", "Express.js", "Django", "FastAPI"],
+      skills: ["Node.js", "Next.js", "Express.js", "Django", "FastAPI"],
     },
     {
       category: "Database",
