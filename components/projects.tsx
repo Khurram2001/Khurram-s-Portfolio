@@ -8,7 +8,7 @@ const projects = [
     tech: ["React", "Magic UI", "FastAPI", "Firebase", "Stripe"],
     color: "bg-gradient-to-br from-[#1a1a2e] to-[#16213e]",
     textColor: "text-white",
-    githubUrl: "https://github.com/mobeenn/papu.ai",
+    githubUrl: "https://github.com/Khurram2001/PAPU.AI",
     liveUrl: "https://papu.ai/",
   },
   {
@@ -40,7 +40,7 @@ const projects = [
     color: "bg-gradient-to-br from-gray-900 to-gray-800",
     textColor: "text-white",
     githubUrl: "https://github.com/Khurram2001/AI-Image-Generator-Django",
-    liveUrl: "https://github.com/Khurram2001/JavaScript-Demo",
+    liveUrl: "https://github.com/Khurram2001/AI-Image-Generator-Django",
   },
 ]
 
