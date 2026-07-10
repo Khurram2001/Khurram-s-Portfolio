@@ -50,3 +50,33 @@ export function getBookingEmbedConfig(
 
   return null
 }
+
+/**
+ * Extracts the Cal.com event path for popup embed buttons (`data-cal-link`).
+ * e.g. https://cal.com/username/15min → username/15min
+ */
+export function getCalLinkFromUrl(
+  bookingUrl: string | null | undefined
+): string | null {
+  if (!bookingUrl) return null
+
+  let parsed: URL
+  try {
+    parsed = new URL(bookingUrl)
+  } catch {
+    return null
+  }
+
+  const host = parsed.hostname.replace(/^www\./, "")
+  if (host !== "cal.com" && !host.endsWith(".cal.com")) return null
+
+  const path = parsed.pathname.replace(/^\//, "").replace(/\/$/, "")
+  return path || null
+}
+
+export function resolveBookingUrl(
+  calComUrl: string | null | undefined,
+  calendlyUrl: string | null | undefined
+): string | null {
+  return calComUrl ?? calendlyUrl ?? null
+}

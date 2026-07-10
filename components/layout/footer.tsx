@@ -11,14 +11,10 @@ export function Footer() {
   return (
     <footer className="border-t border-hairline bg-canvas">
       <SectionContainer className="py-12 sm:py-16">
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-          <div className="min-w-0 space-y-2">
-            <p className="text-sm font-medium text-ink">{siteContent.name}</p>
-            <p className="max-w-sm text-xs leading-relaxed text-ink-subtle">
-              {siteContent.title} · {siteContent.location}
-              {siteContent.openToRemote ? " · Open to Remote" : ""}
-            </p>
-          </div>
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <Link href="#main-content" className={footerLinkClass}>
+            Back to top ↑
+          </Link>
 
           <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-ink-subtle">
             <Link
@@ -46,7 +42,7 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-10 text-xs text-ink-tertiary">
+        <p className="mt-10 text-center text-xs text-ink-tertiary">
           © {year} {siteContent.name}. All rights reserved.
         </p>
       </SectionContainer>

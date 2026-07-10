@@ -14,6 +14,9 @@ export const siteContent = {
   links: resumeData.links,
   hero: resumeData.portfolioContent.hero,
   services: resumeData.portfolioContent.services,
+  experienceHeading: resumeData.portfolioContent.experience.heading,
+  projectsEyebrow: resumeData.portfolioContent.projects.eyebrow,
+  dashboardCaption: resumeData.portfolioContent.dashboard.caption,
   experience: resumeData.experience,
   projects: resumeData.projects,
   education: resumeData.education,
@@ -25,7 +28,7 @@ export const siteContent = {
   navLinks: [
     { label: "Services", href: "#services" },
     { label: "Experience", href: "#experience" },
-    { label: "Dashboard", href: "#dashboard" },
+    { label: "Projects", href: "#projects" },
   ],
 } as const
 
@@ -45,3 +48,5 @@ export function formatExperienceRange(entry: ExperienceEntry): string {
     : entry.endDateLabel
   return `${start} – ${end}`
 }
+
+export const MAX_PROJECT_STACK_TAGS = 4

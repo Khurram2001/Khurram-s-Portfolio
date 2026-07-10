@@ -1,132 +1,130 @@
-"use client"
+﻿"use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
+import { siteContent } from "@/lib/content"
+import {
+  buildTerminalBlock,
+  INITIAL_METRICS,
+  nextMetrics,
+  PIPELINE_SCENARIOS,
+  PIPELINE_STEPS,
+  type LiveMetrics,
+  type PipelineScenario,
+} from "@/lib/pipeline-sim"
 import { SectionContainer } from "@/components/layout/section-container"
-import { SectionReveal } from "@/components/motion/section-reveal"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { cn } from "@/lib/utils"
-
-const PIPELINE_STEPS = ["INIT", "RETRIEVE", "GENERATE", "COMPLETE"] as const
-
-const TERMINAL_LINES = [
-  "$ papu-api --pipeline multi-model --model veo-3",
-  "→ Authenticating Firebase session... OK",
-  "→ Retrieving user credits from Firestore... OK",
-  "→ Routing to Google Veo 3 generation endpoint...",
-  "→ Streaming response tokens [████████████████] 100%",
-  "",
-  "RESULT: Cinematic video render queued — job_id: vx_8f2a91",
-  "LATENCY: 142ms | TOKENS: 1,847 | COST_DELTA: -32%",
-]
-
-const METRICS = [
-  { label: "Latency", value: 142, suffix: "ms" },
-  { label: "Token Efficiency", value: 32, suffix: "%", prefix: "+" },
-  { label: "Active RAG Vectors", value: 1.2, suffix: "M" },
-]
-
-function useTypewriter(lines: string[], enabled: boolean) {
-  const [displayText, setDisplayText] = useState("")
-  const fullText = lines.join("\n")
-
-  useEffect(() => {
-    if (!enabled) {
-      setDisplayText(fullText)
-      return
-    }
-
-    let index = 0
-    setDisplayText("")
-
-    const interval = window.setInterval(() => {
-      index += 1
-      setDisplayText(fullText.slice(0, index))
-      if (index >= fullText.length) {
-        window.clearInterval(interval)
-      }
-    }, 28)
-
-    return () => window.clearInterval(interval)
-  }, [enabled, fullText])
-
-  return displayText
-}
+import { FadeUp } from "@/src/components/FadeUp"
 
 function MetricToken({
   label,
   value,
-  suffix,
-  prefix = "",
-  animate,
 }: {
   label: string
-  value: number
-  suffix: string
-  prefix?: string
-  animate: boolean
+  value: string
 }) {
-  const [display, setDisplay] = useState(animate ? 0 : value)
-
-  useEffect(() => {
-    if (!animate) {
-      setDisplay(value)
-      return
-    }
-
-    const start = performance.now()
-    const duration = 300
-
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1)
-      setDisplay(value * progress)
-      if (progress < 1) requestAnimationFrame(tick)
-    }
-
-    requestAnimationFrame(tick)
-  }, [animate, value])
-
-  const formatted =
-    suffix === "M"
-      ? `${prefix}${display.toFixed(1)}${suffix}`
-      : `${prefix}${Math.round(display)}${suffix}`
-
   return (
     <div className="min-w-0 rounded-md border border-hairline bg-surface-2 px-3 py-2">
       <p className="text-xs text-ink-subtle">{label}</p>
-      <p className="font-mono text-sm text-ink">{formatted}</p>
+      <p className="font-mono text-sm tabular-nums text-ink">{value}</p>
     </div>
   )
+}
+
+function formatMetrics(metrics: LiveMetrics) {
+  return {
+    latency: `${metrics.latencyMs}ms`,
+    efficiency: `+${metrics.tokenEfficiency}%`,
+    vectors: `${metrics.ragVectorsM.toFixed(2)}M`,
+  }
 }
 
 export function AiDashboard() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const reducedMotion = useReducedMotion()
-  const displayText = useTypewriter(TERMINAL_LINES, inView && !reducedMotion)
+
+  const [scenarioIndex, setScenarioIndex] = useState(0)
   const [activeStep, setActiveStep] = useState(0)
+  const [streamPct, setStreamPct] = useState(42)
+  const [metrics, setMetrics] = useState<LiveMetrics>(INITIAL_METRICS)
+  const [terminalText, setTerminalText] = useState("")
+  const [footer, setFooter] = useState({
+    endpoint: PIPELINE_SCENARIOS[0].endpoint,
+    status: PIPELINE_SCENARIOS[0].status,
+  })
+
+  const scenario: PipelineScenario = PIPELINE_SCENARIOS[scenarioIndex]
+  const formatted = formatMetrics(metrics)
+  const live = inView && !reducedMotion
 
   useEffect(() => {
-    if (!inView || reducedMotion) {
+    if (!live) return
+    const id = window.setInterval(() => {
+      setMetrics((prev) => nextMetrics(prev))
+    }, 1000)
+    return () => window.clearInterval(id)
+  }, [live])
+
+  useEffect(() => {
+    if (!live) {
       setActiveStep(PIPELINE_STEPS.length - 1)
       return
     }
+    const id = window.setInterval(() => {
+      setActiveStep((s) => (s + 1) % PIPELINE_STEPS.length)
+    }, 2200)
+    return () => window.clearInterval(id)
+  }, [live])
 
-    let step = 0
-    const interval = window.setInterval(() => {
-      step = Math.min(step + 1, PIPELINE_STEPS.length - 1)
-      setActiveStep(step)
-      if (step >= PIPELINE_STEPS.length - 1) {
-        window.clearInterval(interval)
-      }
-    }, 800)
+  useEffect(() => {
+    if (!live) {
+      setStreamPct(100)
+      return
+    }
+    const id = window.setInterval(() => {
+      setStreamPct((p) => {
+        if (p >= 100) return 100
+        const bump = 4 + Math.floor(Math.random() * 9)
+        return Math.min(100, p + bump)
+      })
+    }, 900)
+    return () => window.clearInterval(id)
+  }, [live, scenarioIndex])
 
-    return () => window.clearInterval(interval)
-  }, [inView, reducedMotion])
+  useEffect(() => {
+    const block = buildTerminalBlock(scenario, metrics, streamPct)
+    setTerminalText(block)
+    setFooter({
+      endpoint: scenario.endpoint,
+      status: scenario.status,
+    })
+  }, [scenario, metrics, streamPct])
+
+  useEffect(() => {
+    if (!live) {
+      setTerminalText(
+        buildTerminalBlock(PIPELINE_SCENARIOS[0], INITIAL_METRICS, 100)
+      )
+      return
+    }
+
+    const rotate = window.setInterval(() => {
+      setScenarioIndex((i) => (i + 1) % PIPELINE_SCENARIOS.length)
+      setStreamPct(18 + Math.floor(Math.random() * 20))
+      setActiveStep(0)
+    }, 14000)
+
+    return () => window.clearInterval(rotate)
+  }, [live])
 
   return (
     <SectionContainer id="dashboard" className="pb-16 md:pb-24">
-      <SectionReveal className="min-w-0">
+      <FadeUp delay={0.15} className="min-w-0">
+        <p className="mb-3 text-[13px] text-ink-subtle">
+          {siteContent.dashboardCaption}
+        </p>
         <div
           ref={ref}
           className="min-w-0 overflow-hidden rounded-xl border border-hairline bg-surface-1 p-4 sm:p-6"
@@ -134,8 +132,8 @@ export function AiDashboard() {
           <div className="mb-4 flex flex-col gap-3 border-b border-hairline pb-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             <div className="min-w-0">
               <p className="text-sm font-medium text-ink">AI Pipeline Monitor</p>
-              <p className="text-xs text-ink-subtle">
-                Live inference trace · PAPU.AI production stack
+              <p className="mt-0.5 text-[11px] text-ink-tertiary sm:text-xs">
+                RAG · agents · multi-model orchestration
               </p>
             </div>
             <div className="flex min-w-0 flex-wrap gap-2">
@@ -143,10 +141,12 @@ export function AiDashboard() {
                 <span
                   key={step}
                   className={cn(
-                    "rounded-sm px-2 py-1 font-mono text-[11px] sm:text-xs",
-                    index <= activeStep
-                      ? "bg-primary/15 text-ink"
-                      : "bg-surface-3 text-ink-tertiary"
+                    "rounded-sm px-2 py-1 font-mono text-[11px] transition-colors duration-300 sm:text-xs",
+                    index === activeStep
+                      ? "bg-primary/20 text-ink ring-1 ring-primary/30"
+                      : index < activeStep
+                        ? "bg-primary/10 text-ink-muted"
+                        : "bg-surface-3 text-ink-tertiary"
                   )}
                 >
                   {step}
@@ -158,23 +158,25 @@ export function AiDashboard() {
           <div className="grid min-w-0 grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_220px]">
             <div className="min-w-0 overflow-hidden rounded-lg bg-surface-3 p-3 sm:p-4">
               <div className="overflow-x-auto">
-                <pre className="min-h-[200px] min-w-0 whitespace-pre font-mono text-xs leading-relaxed text-ink-muted sm:min-h-[220px] sm:text-[13px]">
-                  {displayText}
-                  {!reducedMotion && inView ? (
-                    <span className="animate-cursor-blink text-primary">▋</span>
+                <pre className="min-h-[200px] min-w-0 whitespace-pre font-mono text-xs leading-relaxed text-ink-muted sm:min-h-[240px] sm:text-[13px]">
+                  {terminalText}
+                  {live ? (
+                    <span className="animate-cursor-blink text-primary">?</span>
                   ) : null}
                 </pre>
               </div>
             </div>
 
             <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-1">
-              {METRICS.map((metric) => (
-                <MetricToken
-                  key={metric.label}
-                  {...metric}
-                  animate={inView && !reducedMotion}
-                />
-              ))}
+              <MetricToken label="Latency" value={formatted.latency} />
+              <MetricToken
+                label="Token Efficiency"
+                value={formatted.efficiency}
+              />
+              <MetricToken
+                label="Active RAG Vectors"
+                value={formatted.vectors}
+              />
             </div>
           </div>
 
@@ -186,16 +188,16 @@ export function AiDashboard() {
           >
             <div className="overflow-x-auto font-mono text-[11px] text-ink-subtle sm:text-xs">
               <p className="whitespace-nowrap sm:whitespace-normal">
-                POST /api/v1/generate {"{"} model: &quot;veo-3&quot;, credits: 12,
-                stream: true {"}"}
+                {footer.endpoint}
               </p>
               <p className="mt-2 whitespace-nowrap text-semantic-success sm:whitespace-normal">
-                200 OK · firebase_sync · stripe_metered · 99.2% uptime
+                {footer.status}
               </p>
             </div>
           </motion.div>
         </div>
-      </SectionReveal>
+      </FadeUp>
     </SectionContainer>
   )
 }
+

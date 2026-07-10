@@ -156,8 +156,8 @@ Agile / Scrum, Git Workflows, Code Review, REST API Design
 |---|---|
 | **Description** | Production AI SaaS — users purchase credits and generate cinematic AI videos, avatars, and images via Google Veo 3 on subscription and pay-per-use tiers. |
 | **Stack** | React.js, FastAPI, Firebase, Stripe, Google Veo 3 |
-| **Live** | [https://papu.ai](https://papu.ai) |
-| **GitHub** | [https://github.com/Khurram2001](https://github.com/Khurram2001) *(repo not listed on resume — link to profile)* |
+| **Live** | [https://papu.ai/](https://papu.ai/) |
+| **GitHub** | [https://github.com/Khurram2001/PAPU.AI](https://github.com/Khurram2001/PAPU.AI) |
 
 **Highlights:**
 - Serving **200+ users** on subscription and pay-per-use tiers.
