@@ -12,7 +12,7 @@ const buttonVariants = cva(
         secondary:
           "border border-hairline bg-surface-1 text-ink hover:border-hairline-strong hover:bg-surface-2",
         tertiary: "bg-transparent text-ink hover:text-ink-muted",
-        link: "bg-transparent p-0 text-ink-muted underline-offset-4 hover:text-ink hover:underline min-h-0",
+        link: "inline-flex items-center bg-transparent p-0 text-ink-muted underline-offset-4 hover:text-ink hover:underline min-h-10",
       },
       size: {
         default: "text-sm",

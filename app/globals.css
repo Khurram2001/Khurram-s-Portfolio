@@ -55,6 +55,11 @@
     }
   }
 
+  html,
+  body {
+    @apply overflow-x-hidden;
+  }
+
   body {
     @apply bg-canvas text-ink antialiased;
     font-family: var(--font-display);
@@ -105,7 +110,7 @@
 .rdp-root {
   --rdp-accent-color: var(--primary);
   --rdp-accent-background-color: color-mix(in srgb, var(--primary) 15%, transparent);
-  --rdp-day-height: 36px;
-  --rdp-day-width: 36px;
+  --rdp-day-height: 44px;
+  --rdp-day-width: 44px;
   color: var(--ink);
 }

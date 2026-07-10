@@ -14,7 +14,7 @@ export function SectionContainer({
   as: Component = "section",
 }: SectionContainerProps) {
   return (
-    <Component id={id} className={cn("px-4 md:px-8", className)}>
+    <Component id={id} className={cn("px-6 md:px-8", className)}>
       <div className="mx-auto w-full max-w-[1280px]">{children}</div>
     </Component>
   )

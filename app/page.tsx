@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <TopNav />
-      <main id="main-content">
+      <main id="main-content" className="min-w-0 overflow-x-hidden">
         <Hero />
         <AiDashboard />
         <Services />

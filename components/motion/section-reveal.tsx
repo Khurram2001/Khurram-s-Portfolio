@@ -29,7 +29,7 @@ export function SectionReveal({
       whileInView="visible"
       viewport={viewportOnce}
       variants={variants}
-      className={cn(className)}
+      className={cn("min-w-0", className)}
       {...props}
     >
       {children}

@@ -12,17 +12,17 @@ import { cn } from "@/lib/utils"
 export function Experience() {
   return (
     <SectionContainer id="experience" className="py-16 md:py-24">
-      <SectionReveal>
+      <SectionReveal className="min-w-0">
         <div className="mb-10 max-w-2xl">
           <p className="text-[13px] font-medium uppercase tracking-[0.4px] text-ink-subtle">
             Experience
           </p>
-          <h2 className="mt-3 text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-[-0.04em] text-ink">
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl lg:text-[2.5rem]">
             Impact logs from production systems
           </h2>
         </div>
 
-        <div>
+        <div className="min-w-0">
           {siteContent.experience.map((entry) => (
             <ChangelogRow
               key={entry.id}
@@ -35,22 +35,22 @@ export function Experience() {
           ))}
         </div>
 
-        <div className="mt-16">
+        <div className="mt-16 min-w-0">
           <div className="mb-8 max-w-2xl">
             <p className="text-[13px] font-medium uppercase tracking-[0.4px] text-ink-subtle">
               Projects
             </p>
-            <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-ink">
+            <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-ink sm:text-3xl">
               Shipped products with real users
             </h3>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {siteContent.projects.map((project) => (
               <article
                 key={project.id}
                 className={cn(
-                  "rounded-lg border border-hairline bg-surface-1 p-6 transition-colors hover:border-hairline-strong"
+                  "min-w-0 rounded-lg border border-hairline bg-surface-1 p-5 transition-colors hover:border-hairline-strong sm:p-6"
                 )}
               >
                 <div className="flex items-start justify-between gap-3">
@@ -61,7 +61,7 @@ export function Experience() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-ink-subtle hover:text-primary"
+                        className="inline-flex size-11 items-center justify-center text-ink-subtle hover:text-primary"
                         aria-label={`Visit ${project.name}`}
                       >
                         <ExternalLink className="size-4" />
@@ -96,13 +96,13 @@ export function Experience() {
                   ))}
                 </div>
 
-                <div className="mt-4 flex flex-wrap gap-4 text-xs">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {project.liveUrl ? (
                     <Link
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:text-primary-hover"
+                      className="inline-flex min-h-11 items-center px-1 text-xs text-primary hover:text-primary-hover"
                     >
                       Live demo
                     </Link>
@@ -112,7 +112,7 @@ export function Experience() {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-ink-subtle hover:text-ink"
+                      className="inline-flex min-h-11 items-center px-1 text-xs text-ink-subtle hover:text-ink"
                     >
                       GitHub
                     </Link>

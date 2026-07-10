@@ -20,7 +20,7 @@ export function FeatureCard({ title, items, className }: FeatureCardProps) {
       whileHover={reducedMotion ? undefined : "hover"}
       variants={cardHover}
       className={cn(
-        "rounded-lg border border-hairline bg-surface-1 p-6 hover:border-hairline-strong",
+        "min-w-0 rounded-lg border border-hairline bg-surface-1 p-5 hover:border-hairline-strong sm:p-6",
         className
       )}
     >

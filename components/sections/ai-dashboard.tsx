@@ -1,8 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
 import { SectionContainer } from "@/components/layout/section-container"
 import { SectionReveal } from "@/components/motion/section-reveal"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
@@ -93,7 +92,7 @@ function MetricToken({
       : `${prefix}${Math.round(display)}${suffix}`
 
   return (
-    <div className="rounded-md border border-hairline bg-surface-2 px-3 py-2">
+    <div className="min-w-0 rounded-md border border-hairline bg-surface-2 px-3 py-2">
       <p className="text-xs text-ink-subtle">{label}</p>
       <p className="font-mono text-sm text-ink">{formatted}</p>
     </div>
@@ -127,24 +126,24 @@ export function AiDashboard() {
 
   return (
     <SectionContainer id="dashboard" className="pb-16 md:pb-24">
-      <SectionReveal>
+      <SectionReveal className="min-w-0">
         <div
           ref={ref}
-          className="overflow-hidden rounded-xl border border-hairline bg-surface-1 p-6"
+          className="min-w-0 overflow-hidden rounded-xl border border-hairline bg-surface-1 p-4 sm:p-6"
         >
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-hairline pb-4">
-            <div>
+          <div className="mb-4 flex flex-col gap-3 border-b border-hairline pb-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <div className="min-w-0">
               <p className="text-sm font-medium text-ink">AI Pipeline Monitor</p>
               <p className="text-xs text-ink-subtle">
                 Live inference trace · PAPU.AI production stack
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex min-w-0 flex-wrap gap-2">
               {PIPELINE_STEPS.map((step, index) => (
                 <span
                   key={step}
                   className={cn(
-                    "rounded-sm px-2 py-1 font-mono text-xs",
+                    "rounded-sm px-2 py-1 font-mono text-[11px] sm:text-xs",
                     index <= activeStep
                       ? "bg-primary/15 text-ink"
                       : "bg-surface-3 text-ink-tertiary"
@@ -156,17 +155,19 @@ export function AiDashboard() {
             </div>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1fr_220px]">
-            <div className="rounded-lg bg-surface-3 p-4">
-              <pre className="min-h-[220px] whitespace-pre-wrap font-mono text-[13px] leading-relaxed text-ink-muted">
-                {displayText}
-                {!reducedMotion && inView ? (
-                  <span className="animate-cursor-blink text-primary">▋</span>
-                ) : null}
-              </pre>
+          <div className="grid min-w-0 grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_220px]">
+            <div className="min-w-0 overflow-hidden rounded-lg bg-surface-3 p-3 sm:p-4">
+              <div className="overflow-x-auto">
+                <pre className="min-h-[200px] min-w-0 whitespace-pre font-mono text-xs leading-relaxed text-ink-muted sm:min-h-[220px] sm:text-[13px]">
+                  {displayText}
+                  {!reducedMotion && inView ? (
+                    <span className="animate-cursor-blink text-primary">▋</span>
+                  ) : null}
+                </pre>
+              </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-1">
               {METRICS.map((metric) => (
                 <MetricToken
                   key={metric.label}
@@ -181,15 +182,17 @@ export function AiDashboard() {
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.3, delay: 0.2 }}
-            className="mt-4 rounded-lg border border-hairline bg-surface-3 p-4 font-mono text-xs text-ink-subtle"
+            className="mt-4 min-w-0 overflow-hidden rounded-lg border border-hairline bg-surface-3 p-3 sm:p-4"
           >
-            <p>
-              POST /api/v1/generate {"{"} model: &quot;veo-3&quot;, credits: 12,
-              stream: true {"}"}
-            </p>
-            <p className="mt-2 text-semantic-success">
-              200 OK · firebase_sync · stripe_metered · 99.2% uptime
-            </p>
+            <div className="overflow-x-auto font-mono text-[11px] text-ink-subtle sm:text-xs">
+              <p className="whitespace-nowrap sm:whitespace-normal">
+                POST /api/v1/generate {"{"} model: &quot;veo-3&quot;, credits: 12,
+                stream: true {"}"}
+              </p>
+              <p className="mt-2 whitespace-nowrap text-semantic-success sm:whitespace-normal">
+                200 OK · firebase_sync · stripe_metered · 99.2% uptime
+              </p>
+            </div>
           </motion.div>
         </div>
       </SectionReveal>

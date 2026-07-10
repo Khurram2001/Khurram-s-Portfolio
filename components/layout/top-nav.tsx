@@ -19,6 +19,13 @@ export function TopNav() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen])
+
   const handleNavClick = (href: string) => {
     setMobileOpen(false)
     scrollToSection(href)
@@ -31,8 +38,8 @@ export function TopNav() {
         scrolled ? "bg-surface-1/80 backdrop-blur-sm" : "bg-canvas"
       )}
     >
-      <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between gap-4 px-4 md:px-8">
-        <div className="flex min-w-0 items-center gap-3">
+      <div className="relative mx-auto flex h-14 max-w-[1280px] items-center justify-between gap-4 px-6 md:px-8">
+        <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => scrollToSection("#hero")}
@@ -42,7 +49,7 @@ export function TopNav() {
           </button>
           <StatusBadge
             label={siteContent.availability}
-            className="hidden sm:inline-flex"
+            className="hidden lg:inline-flex"
           />
         </div>
 
@@ -55,23 +62,23 @@ export function TopNav() {
               key={link.href}
               type="button"
               onClick={() => handleNavClick(link.href)}
-              className="text-sm text-ink-subtle transition-colors hover:text-ink"
+              className="min-h-10 text-sm text-ink-subtle transition-colors hover:text-ink"
             >
               {link.label}
             </button>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <Button
-            className="hidden sm:inline-flex"
+            className="hidden md:inline-flex"
             onClick={() => handleNavClick("#booking")}
           >
             Book Strategy Call
           </Button>
           <button
             type="button"
-            className="inline-flex size-10 items-center justify-center rounded-md border border-hairline text-ink md:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-md border border-hairline text-ink md:hidden"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((open) => !open)}
@@ -82,26 +89,34 @@ export function TopNav() {
       </div>
 
       {mobileOpen ? (
-        <div className="border-t border-hairline bg-canvas px-4 py-4 md:hidden">
-          <nav className="flex flex-col gap-3" aria-label="Mobile">
-            {siteContent.navLinks.map((link) => (
-              <button
-                key={link.href}
-                type="button"
-                onClick={() => handleNavClick(link.href)}
-                className="py-2 text-left text-sm text-ink-subtle hover:text-ink"
+        <>
+          <button
+            type="button"
+            className="fixed inset-0 top-14 z-40 bg-canvas/80 backdrop-blur-sm md:hidden"
+            aria-label="Close menu"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div className="absolute left-0 right-0 top-full z-50 border-b border-hairline bg-canvas px-6 py-4 shadow-lg md:hidden">
+            <nav className="flex flex-col gap-1" aria-label="Mobile">
+              {siteContent.navLinks.map((link) => (
+                <button
+                  key={link.href}
+                  type="button"
+                  onClick={() => handleNavClick(link.href)}
+                  className="flex min-h-11 items-center text-left text-sm text-ink-subtle hover:text-ink"
+                >
+                  {link.label}
+                </button>
+              ))}
+              <Button
+                className="mt-3 w-full"
+                onClick={() => handleNavClick("#booking")}
               >
-                {link.label}
-              </button>
-            ))}
-            <Button
-              className="mt-2 w-full"
-              onClick={() => handleNavClick("#booking")}
-            >
-              Book Strategy Call
-            </Button>
-          </nav>
-        </div>
+                Book Strategy Call
+              </Button>
+            </nav>
+          </div>
+        </>
       ) : null}
     </header>
   )

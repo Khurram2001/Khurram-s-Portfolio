@@ -20,7 +20,7 @@ export function ChangelogRow({
   return (
     <article
       className={cn(
-        "grid gap-6 border-b border-hairline py-6 md:grid-cols-[minmax(180px,30%)_1fr] md:gap-10",
+        "grid min-w-0 grid-cols-1 gap-4 border-b border-hairline py-6 sm:gap-6 lg:grid-cols-[minmax(180px,30%)_1fr] lg:gap-10",
         className
       )}
     >

@@ -19,7 +19,7 @@ export function FadeInUp({ children, className, ...props }: FadeInUpProps) {
   return (
     <motion.div
       variants={variants}
-      className={cn(className)}
+      className={cn("min-w-0", className)}
       {...props}
     >
       {children}
