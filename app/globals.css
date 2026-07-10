@@ -1,19 +1,111 @@
 @import "tailwindcss";
+@import "react-day-picker/style.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --muted-foreground: #737373;
+  --canvas: #010102;
+  --surface-1: #0f1011;
+  --surface-2: #141516;
+  --surface-3: #18191a;
+  --surface-4: #191a1b;
+  --hairline: #23252a;
+  --hairline-strong: #34343a;
+  --hairline-tertiary: #3e3e44;
+  --primary: #5e6ad2;
+  --primary-hover: #828fff;
+  --primary-focus: #5e69d1;
+  --ink: #f7f8f8;
+  --ink-muted: #d0d6e0;
+  --ink-subtle: #8a8f98;
+  --ink-tertiary: #62666d;
+  --semantic-success: #27a644;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted-foreground: var(--muted-foreground);
+  --color-canvas: var(--canvas);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-hairline-tertiary: var(--hairline-tertiary);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-focus: var(--primary-focus);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-tertiary: var(--ink-tertiary);
+  --color-semantic-success: var(--semantic-success);
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 }
 
 @layer base {
-  body {
-    @apply bg-background text-foreground antialiased;
+  html {
+    scroll-behavior: smooth;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-family: var(--font-display);
+  }
+
+  :focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--primary-focus) 50%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes pulse-success {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-pulse-success {
+  animation: pulse-success 2s var(--ease-out) infinite;
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-success,
+  .animate-cursor-blink {
+    animation: none;
+  }
+}
+
+/* react-day-picker dark theme overrides */
+.rdp-root {
+  --rdp-accent-color: var(--primary);
+  --rdp-accent-background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+  --rdp-day-height: 36px;
+  --rdp-day-width: 36px;
+  color: var(--ink);
 }

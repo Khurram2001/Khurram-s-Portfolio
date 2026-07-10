@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "source": "Resume-Khurram-Zaman-AI-Full-Stack-Engineer.pdf",
+    "extractedAt": "2026-07-10",
+    "version": "1.0"
+  },
+  "identity": {
+    "fullName": "Khurram Zaman",
+    "title": "Full Stack Developer & AI Integration Engineer",
+    "location": "Pakistan",
+    "openToRemote": true,
+    "yearsExperience": "1+"
+  },
+  "contact": {
+    "phone": "+92-305-352-9034",
+    "phoneHref": "tel:+923053529034",
+    "email": "khurramzaman2001@gmail.com",
+    "emailHref": "mailto:khurramzaman2001@gmail.com"
+  },
+  "links": {
+    "linkedin": {
+      "label": "LinkedIn",
+      "handle": "khurramzaman-developer",
+      "url": "https://linkedin.com/in/khurramzaman-developer"
+    },
+    "github": {
+      "label": "GitHub",
+      "handle": "Khurram2001",
+      "url": "https://github.com/Khurram2001"
+    },
+    "portfolio": {
+      "label": "Portfolio",
+      "url": "https://khurramsportfolio.netlify.app"
+    }
+  },
+  "summary": "Full Stack Developer and AI Integration Engineer with 1+ years of experience building and shipping production-grade web, mobile, and AI-powered SaaS platforms using React, Next.js, Node.js, FastAPI, and PostgreSQL. Proven expertise integrating Generative AI APIs and RESTful APIs into scalable cloud systems on AWS (EC2, S3) and Firebase — delivering end-to-end solutions across the full software development lifecycle in Agile environments.",
+  "heroSubhead": "Architect and ship production-grade web, mobile, and AI SaaS platforms with React, Next.js, FastAPI, and PostgreSQL. I integrate Generative AI APIs into scalable AWS and Firebase systems — from system design through deployment — so products ship faster and monetize sooner.",
+  "skills": {
+    "languages": ["JavaScript (ES6+)", "TypeScript", "Python", "SQL", "HTML5", "CSS3"],
+    "frontend": ["React.js", "Next.js", "React Native", "Redux", "Tailwind CSS", "Material UI", "Leaflet.js", "Axios"],
+    "backend": ["Node.js", "Express.js", "FastAPI (Python)", "RESTful APIs", "JWT", "OAuth 2.0", "Multer"],
+    "aiIntegration": ["Generative AI APIs", "OpenAI API", "Google Veo 3", "AI Video Generation", "Prompt Engineering", "API Integration"],
+    "databases": ["PostgreSQL", "MongoDB", "Firebase Firestore", "Prisma ORM"],
+    "cloudDevOps": ["AWS (EC2, S3)", "Firebase Hosting", "Render", "Docker", "Git", "GitHub Actions", "CI/CD", "Vercel"],
+    "apisTools": ["Stripe", "Cloudinary", "Resend", "OpenStreetMap", "Google Analytics", "Postman", "Jest"],
+    "methodology": ["Agile / Scrum", "Git Workflows", "Code Review", "REST API Design"]
+  },
+  "experience": [
+    {
+      "id": "freelance-full-stack",
+      "company": "Self-Employed",
+      "role": "Freelance Full Stack Developer",
+      "location": "Remote",
+      "startDate": "2025-02",
+      "endDate": null,
+      "endDateLabel": "Present",
+      "highlights": [
+        "Independently architected and delivered 4+ full-stack client projects end-to-end using Next.js, Node.js, FastAPI, and PostgreSQL — spanning requirements, system design, development, testing, and AWS deployment.",
+        "Integrated Generative AI and third-party APIs into client platforms, enabling intelligent content automation features that directly drove client monetization.",
+        "Provisioned and managed AWS infrastructure (EC2, S3) for production environments, reducing per-client hosting overhead by up to 40%."
+      ],
+      "stack": ["Next.js", "Node.js", "FastAPI", "PostgreSQL", "AWS EC2", "AWS S3", "Generative AI APIs"],
+      "metrics": [
+        { "value": "4+", "label": "client projects delivered" },
+        { "value": "40%", "label": "hosting overhead reduction" }
+      ]
+    },
+    {
+      "id": "infini8-ai",
+      "company": "Infini8 AI",
+      "role": "Full Stack Engineer",
+      "location": "Remote, England",
+      "startDate": "2025-11",
+      "endDate": "2026-05",
+      "endDateLabel": "May 2026",
+      "highlights": [
+        "Spearheaded frontend development of an AI-powered content generation SaaS platform using React 19 and Axios in an Agile team environment, serving 500+ active paying subscribers.",
+        "Integrated 3+ third-party Generative AI APIs — automating video, caption, and image generation pipelines — unlocking new revenue streams and cutting manual content production time by around 60%.",
+        "Deployed and maintained scalable application infrastructure on Firebase with CI/CD pipelines, achieving 99%+ uptime across production releases."
+      ],
+      "stack": ["React 19", "Axios", "Firebase", "CI/CD", "Generative AI APIs"],
+      "metrics": [
+        { "value": "500+", "label": "active paying subscribers" },
+        { "value": "60%", "label": "content production time reduction" },
+        { "value": "99%+", "label": "production uptime" }
+      ]
+    },
+    {
+      "id": "nextgenxolution",
+      "company": "NextGenXolution",
+      "role": "Junior Full Stack Mobile Developer",
+      "location": "Wah Cantt, Pakistan",
+      "startDate": "2025-08",
+      "endDate": "2025-11",
+      "endDateLabel": "Nov 2025",
+      "highlights": [
+        "Developed cross-platform mobile application features in React Native targeting iOS and Android from a unified TypeScript codebase, collaborating within a cross-functional team.",
+        "Built and documented RESTful APIs with Node.js, Express.js, and MongoDB — covering authentication middleware, CRUD operations, and structured API documentation.",
+        "Engineered a media upload pipeline using Multer and Cloudinary, supporting reliable image and video handling for 300+ mobile users."
+      ],
+      "stack": ["React Native", "TypeScript", "Node.js", "Express.js", "MongoDB", "Multer", "Cloudinary"],
+      "metrics": [
+        { "value": "300+", "label": "mobile users" }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "data-lumio",
+      "name": "Data Lumio",
+      "description": "AI-powered, no-code data analysis SaaS platform — researchers upload spreadsheets, PDFs, and survey files to clean, visualize, and export insights without writing code.",
+      "stack": ["React", "Redux", "FastAPI", "AWS S3", "Firebase Auth", "Stripe", "Tailwind CSS"],
+      "liveUrl": "https://datalumio.co",
+      "githubUrl": "https://github.com/Khurram2001/Data-Lumio",
+      "highlights": [
+        "Built an AI-powered, no-code data analysis SaaS platform for qualitative and quantitative research.",
+        "Implemented Stripe subscription billing, Firebase Auth, and AWS S3 file storage.",
+        "Added Google Analytics to drive data-informed product decisions."
+      ]
+    },
+    {
+      "id": "maqaam",
+      "name": "Maqaam",
+      "description": "Full-stack Islamic community platform with admin and user portals — map-powered events via OpenStreetMap; role-based admin moderation dashboard.",
+      "stack": ["Next.js", "Node.js", "PostgreSQL", "Prisma ORM", "JWT", "AWS EC2", "Resend"],
+      "liveUrl": "https://maqaam.me",
+      "githubUrl": "https://github.com/Khurram2001/Maqaam--Discover-Islamic-Gatherings",
+      "highlights": [
+        "Developed dedicated admin and user portals with map-powered event creation.",
+        "Designed a normalized PostgreSQL schema with geo-filtering queries.",
+        "Secured sessions with JWT authentication and deployed on AWS EC2."
+      ]
+    },
+    {
+      "id": "papu-ai",
+      "name": "PAPU.AI",
+      "description": "Production AI SaaS — users purchase credits and generate cinematic AI videos, avatars, and images via Google Veo 3 on subscription and pay-per-use tiers.",
+      "stack": ["React.js", "FastAPI", "Firebase", "Stripe", "Google Veo 3"],
+      "liveUrl": "https://papu.ai",
+      "githubUrl": null,
+      "githubNote": "Repo not listed on resume",
+      "highlights": [
+        "Serving 200+ users on subscription and pay-per-use tiers.",
+        "Orchestrated a multi-model Generative AI pipeline via FastAPI with Firebase real-time sync and Stripe billing.",
+        "Fully monetized from launch."
+      ],
+      "metrics": [
+        { "value": "200+", "label": "users" }
+      ]
+    },
+    {
+      "id": "libmax",
+      "name": "LIBMAX",
+      "description": "Cross-platform library management app for University of Wah — book reservations, e-book access, research publications, and campus announcements.",
+      "stack": ["React Native", "TypeScript", "Node.js", "Express.js", "MongoDB"],
+      "liveUrl": null,
+      "githubUrl": "https://github.com/Khurram2001/LibMax_frontend",
+      "highlights": [
+        "Serving 1,000+ active users at University of Wah.",
+        "Implemented role-based access control (student/faculty) in TypeScript end-to-end.",
+        "Cloudinary cloud storage for academic content."
+      ],
+      "metrics": [
+        { "value": "1,000+", "label": "active users" }
+      ]
+    }
+  ],
+  "education": {
+    "degree": "Bachelor of Science in Computer Science",
+    "institution": "University of Wah",
+    "location": "Punjab, Pakistan",
+    "startDate": "2021-09",
+    "endDate": "2025-08",
+    "gpa": "3.27 / 4.0",
+    "coursework": [
+      "Data Structures & Algorithms",
+      "Database Systems",
+      "Web Engineering",
+      "Software Engineering",
+      "Operating Systems",
+      "Computer Networks"
+    ]
+  },
+  "additionalRepos": [
+    {
+      "name": "Khurram-s-Portfolio",
+      "description": "Previous portfolio (TypeScript)",
+      "url": "https://github.com/Khurram2001/Khurram-s-Portfolio"
+    },
+    {
+      "name": "ai-telephony-agent",
+      "description": "AI voice agent — Python, Twilio, VideoSDK",
+      "url": "https://github.com/Khurram2001/ai-telephony-agent"
+    },
+    {
+      "name": "AI-Image-Generator-Django",
+      "description": "Image generation via OpenAI API",
+      "url": "https://github.com/Khurram2001/AI-Image-Generator-Django"
+    }
+  ],
+  "portfolioContent": {
+    "navName": "Khurram Zaman",
+    "availability": "Available for Q3 Consultancy",
+    "hero": {
+      "eyebrow": "AI • FULL STACK • CLOUD",
+      "headline": "Building Intelligent Applications That Scale Business Revenue.",
+      "subhead": "Architecting production-ready AI pipelines and full-stack cloud ecosystems. I optimize model inference, design secure RAG engines, and build robust software frameworks that drive business outcome."
+    },
+    "services": [
+      {
+        "title": "Intelligent AI Systems",
+        "items": ["RAG pipelines", "Generative AI APIs", "OpenAI & Google Veo 3", "Prompt engineering", "Multi-model pipelines"]
+      },
+      {
+        "title": "Full-Stack Engineering",
+        "items": ["Next.js & React 19", "FastAPI & Node.js", "PostgreSQL & Prisma", "JWT & OAuth 2.0", "REST API design"]
+      },
+      {
+        "title": "Cloud & AI Deployment",
+        "items": ["AWS EC2 & S3", "Firebase & Vercel", "Docker & CI/CD", "Cost optimization", "99%+ uptime delivery"]
+      }
+    ],
+    "booking": {
+      "headline": "Let's Map Out Your AI Strategy.",
+      "subtext": "Book a complimentary 15-minute technical consultation. We'll analyze your current product bottlenecks and map out a direct line to integration.",
+      "calendlyUrl": null
+    }
+  }
+}
