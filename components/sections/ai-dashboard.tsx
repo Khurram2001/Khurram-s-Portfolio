@@ -15,7 +15,7 @@ import {
 import { SectionContainer } from "@/components/layout/section-container"
 import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import { cn } from "@/lib/utils"
-import { FadeUp } from "@/src/components/FadeUp"
+import { FadeUp } from "@/components/motion/fade-up"
 
 function MetricToken({
   label,

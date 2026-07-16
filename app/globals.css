@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "react-day-picker/style.css";
 
 :root {
   --canvas: #010102;
@@ -104,13 +103,4 @@
   .animate-cursor-blink {
     animation: none;
   }
-}
-
-/* react-day-picker dark theme overrides */
-.rdp-root {
-  --rdp-accent-color: var(--primary);
-  --rdp-accent-background-color: color-mix(in srgb, var(--primary) 15%, transparent);
-  --rdp-day-height: 44px;
-  --rdp-day-width: 44px;
-  color: var(--ink);
 }

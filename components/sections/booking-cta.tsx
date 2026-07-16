@@ -2,7 +2,7 @@
 import { siteContent } from "@/lib/content"
 import { SectionContainer } from "@/components/layout/section-container"
 import { Button } from "@/components/ui/button"
-import { FadeUp } from "@/src/components/FadeUp"
+import { FadeUp } from "@/components/motion/fade-up"
 
 const CAL_URL = "https://cal.com/khurramzaman"
 

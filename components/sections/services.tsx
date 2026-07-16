@@ -1,7 +1,7 @@
 ﻿import { siteContent } from "@/lib/content"
 import { SectionContainer } from "@/components/layout/section-container"
 import { FeatureCard } from "@/components/ui/feature-card"
-import { FadeUp } from "@/src/components/FadeUp"
+import { FadeUp } from "@/components/motion/fade-up"
 
 export function Services() {
   return (

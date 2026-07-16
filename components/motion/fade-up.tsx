@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { motion, useReducedMotion } from "framer-motion"
 import { cn } from "@/lib/utils"
@@ -37,4 +37,3 @@ export function FadeUp({ children, delay = 0, className }: FadeUpProps) {
     </motion.div>
   )
 }
-

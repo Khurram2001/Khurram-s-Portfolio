@@ -8,7 +8,7 @@ import {
 import { SectionContainer } from "@/components/layout/section-container"
 import { ChangelogRow } from "@/components/ui/changelog-row"
 import { cn } from "@/lib/utils"
-import { FadeUp } from "@/src/components/FadeUp"
+import { FadeUp } from "@/components/motion/fade-up"
 
 export function Experience() {
   return (
