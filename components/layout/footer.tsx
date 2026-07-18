@@ -38,7 +38,12 @@ export function Footer() {
               email={siteContent.contact.email}
               className={footerLinkClass}
             />
-            <Link href="#booking" className={footerLinkClass}>
+            <Link
+              href="https://cal.com/khurramzaman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={footerLinkClass}
+            >
               Book a Call
             </Link>
           </div>
