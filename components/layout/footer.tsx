@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { siteContent } from "@/lib/content"
 import { SectionContainer } from "@/components/layout/section-container"
+import { CopyEmailButton } from "@/components/layout/copy-email-button"
 
 const footerLinkClass =
   "inline-flex min-h-10 items-center text-xs text-ink-subtle hover:text-ink"
@@ -33,9 +34,10 @@ export function Footer() {
             >
               GitHub
             </Link>
-            <Link href={siteContent.contact.emailHref} className={footerLinkClass}>
-              Email
-            </Link>
+            <CopyEmailButton
+              email={siteContent.contact.email}
+              className={footerLinkClass}
+            />
             <Link href="#booking" className={footerLinkClass}>
               Book a Call
             </Link>
