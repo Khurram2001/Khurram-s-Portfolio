@@ -41,7 +41,7 @@ export function Hero() {
           </AnchorLink>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 divide-y divide-[#CDCDCB] border-t border-[#CDCDCB] pt-12 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <div className="mt-12 grid grid-cols-1 gap-0 divide-y divide-[#CDCDCB] border-t border-[#CDCDCB] pt-12 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           <MetricCounter target={700} suffix="+" label="Active Users" />
           <MetricCounter target={5} label="SaaS Products" />
           <MetricCounter

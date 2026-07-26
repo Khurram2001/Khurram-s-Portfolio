@@ -19,16 +19,15 @@ export function MetricCounter({
   duration = 2000,
 }: MetricCounterProps) {
   const [count, setCount] = useState(0)
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 })
   const hasAnimated = useRef(false)
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 })
 
   useEffect(() => {
-    if (!inView || hasAnimated.current) return
+    if (!inView || hasAnimated.current || !target) return
     hasAnimated.current = true
-
     const startTime = performance.now()
-    const step = (currentTime: number) => {
-      const elapsed = currentTime - startTime
+    const step = (now: number) => {
+      const elapsed = now - startTime
       const progress = Math.min(elapsed / duration, 1)
       const eased = 1 - Math.pow(1 - progress, 3)
       setCount(Math.floor(eased * target))
@@ -39,12 +38,12 @@ export function MetricCounter({
 
   return (
     <div ref={ref} className="flex flex-col items-center gap-1 py-6 sm:py-0">
-      <span className="text-5xl font-black text-[#E56515] tabular-nums">
+      <span className="text-5xl font-black leading-none text-[#E56515] tabular-nums lg:text-6xl">
         {prefix}
         {count}
         {suffix}
       </span>
-      <span className="text-center text-sm font-medium tracking-widest text-[#919599] uppercase">
+      <span className="mt-2 text-center text-xs font-medium tracking-widest text-[#919599] uppercase">
         {label}
       </span>
     </div>
