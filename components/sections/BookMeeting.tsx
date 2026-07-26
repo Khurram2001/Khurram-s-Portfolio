@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { getCalApi } from "@calcom/embed-react"
 
 // Hardcoded — not from env
-const CAL_LINK = "khurram-zaman-rjjabq"
+const CAL_LINK = "khurramzaman/15min"
 
 export function BookMeeting() {
   useEffect(() => {
@@ -35,12 +35,12 @@ export function BookMeeting() {
               <br className="hidden sm:block" /> your project
             </h2>
             <p className="mb-8 max-w-md leading-relaxed text-[#919599]">
-              A focused 30-minute call to map scope, stack, and timeline. No pressure —
+              A focused 15-minute call to map scope, stack, and timeline. No pressure —
               just clarity on whether we&apos;re a fit.
             </p>
             <ul className="mb-10 space-y-4">
               {[
-                "15–30 minute intro call",
+                "15-minute intro call",
                 "Clear next steps and rough timeline",
                 "Honest fit check either way",
               ].map((item) => (
@@ -74,7 +74,7 @@ export function BookMeeting() {
                 <line x1="8" y1="2" x2="8" y2="6" />
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
-              Schedule a free 30-min call
+              Schedule a free 15-min call
             </button>
 
             <p className="mt-4 text-xs text-[#919599]">
@@ -112,7 +112,7 @@ export function BookMeeting() {
               <div className="space-y-4">
                 {[
                   { step: "01", text: "You pick a time slot that works for you" },
-                  { step: "02", text: "We hop on a 30-min call — no prep needed" },
+                  { step: "02", text: "We hop on a 15-min call — no prep needed" },
                   {
                     step: "03",
                     text: "I send a written summary + rough estimate within 24h",
