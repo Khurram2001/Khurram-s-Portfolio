@@ -37,7 +37,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-[#E56515] hover:underline"
+        className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[#E56515] hover:underline"
       >
         Visit project
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
