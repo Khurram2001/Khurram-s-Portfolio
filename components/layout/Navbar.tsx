@@ -1,24 +1,15 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { AnchorLink } from "@/components/ui/AnchorLink"
-import { Button } from "@/components/ui/button"
-import { resume, siteCopy } from "@/lib/resume"
-import { cn } from "@/lib/utils"
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => {
-      const hero = document.getElementById("hero")
-      const threshold = hero ? hero.offsetHeight - 64 : window.innerHeight * 0.7
-      setScrolled(window.scrollY > threshold)
-    }
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+    const handleScroll = () => setScrolled(window.scrollY > 80)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   useEffect(() => {
@@ -28,98 +19,101 @@ export function Navbar() {
     }
   }, [isOpen])
 
-  const closeMenu = () => setIsOpen(false)
+  const navLinks = [
+    { label: "About", href: "#about" },
+    { label: "Services", href: "#services" },
+    { label: "Work", href: "#work" },
+    { label: "Stack", href: "#stack" },
+  ]
+
+  const handleNavClick = (href: string) => {
+    setIsOpen(false)
+    setTimeout(() => {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" })
+    }, 300)
+  }
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-200",
-        scrolled || isOpen
-          ? "border-b border-grey-light bg-white/90 backdrop-blur-[12px]"
-          : "border-b border-transparent bg-transparent"
-      )}
-    >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
-        <AnchorLink href="#hero" className="text-sm font-bold tracking-tight text-ink">
-          {resume.meta.name}
-        </AnchorLink>
+    <>
+      <header
+        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "border-b border-[#CDCDCB] bg-white/95 backdrop-blur-md"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+          <a href="#hero" className="text-sm font-semibold tracking-tight text-[#111111]">
+            Khurram Zaman
+          </a>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-          {siteCopy.nav.links.map((link) => (
-            <AnchorLink
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-ink transition-colors hover:text-orange-vivid"
+          <nav className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm text-[#919599] transition-colors duration-150 hover:text-[#111111]"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="#book"
+              className="rounded-[6px] bg-[#E56515] px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#c8570f]"
             >
-              {link.label}
-            </AnchorLink>
-          ))}
-          <Button
-            asChild
-            className="rounded-md bg-orange-vivid text-white transition-[background-color,transform] duration-150 hover:scale-[1.02] hover:bg-orange-vivid/90"
-          >
-            <AnchorLink href={siteCopy.nav.cta.href}>{siteCopy.nav.cta.label}</AnchorLink>
-          </Button>
-        </nav>
+              Book a Call
+            </a>
+          </nav>
 
-        <button
-          type="button"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isOpen}
-          className="flex flex-col gap-[5px] p-2 md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span
-            className={cn(
-              "block h-0.5 w-5 bg-[#111111] transition-transform duration-200",
-              isOpen && "translate-y-[6.5px] rotate-45"
-            )}
-          />
-          <span
-            className={cn(
-              "block h-0.5 w-5 bg-[#111111] transition-opacity duration-200",
-              isOpen && "opacity-0"
-            )}
-          />
-          <span
-            className={cn(
-              "block h-0.5 w-5 bg-[#111111] transition-transform duration-200",
-              isOpen && "-translate-y-[6.5px] -rotate-45"
-            )}
-          />
-        </button>
-      </div>
+          <button
+            type="button"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+            className="-mr-2 flex flex-col gap-[5px] p-2 md:hidden"
+          >
+            <span
+              className={`block h-0.5 w-5 bg-[#111111] transition-transform duration-200 ${
+                isOpen ? "translate-y-[6.5px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-5 bg-[#111111] transition-opacity duration-200 ${
+                isOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-5 bg-[#111111] transition-transform duration-200 ${
+                isOpen ? "-translate-y-[6.5px] -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </div>
+      </header>
 
       <div
-        className={cn(
-          "fixed inset-0 top-16 z-40 flex items-center justify-center bg-[rgba(255,255,255,0.98)] backdrop-blur-[8px] transition-all duration-200 ease-out md:hidden",
-          isOpen
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-2 opacity-0"
-        )}
-        aria-hidden={!isOpen}
+        className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-white/98 backdrop-blur-sm transition-all duration-300 md:hidden ${
+          isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
       >
-        <nav className="flex flex-col items-center gap-8 px-6" aria-label="Mobile">
-          {siteCopy.nav.links.map((link) => (
-            <AnchorLink
-              key={link.href}
-              href={link.href}
-              className="text-2xl font-semibold text-ink"
-              onClick={closeMenu}
-            >
-              {link.label}
-            </AnchorLink>
-          ))}
-          <Button
-            asChild
-            className="mt-2 h-12 rounded-md bg-orange-vivid px-8 text-white hover:bg-orange-vivid/90"
+        {navLinks.map((link) => (
+          <button
+            key={link.href}
+            type="button"
+            onClick={() => handleNavClick(link.href)}
+            className="text-2xl font-semibold text-[#111111] transition-colors duration-150 hover:text-[#E56515]"
           >
-            <AnchorLink href={siteCopy.nav.cta.href} onClick={closeMenu}>
-              {siteCopy.nav.cta.label}
-            </AnchorLink>
-          </Button>
-        </nav>
+            {link.label}
+          </button>
+        ))}
+        <button
+          type="button"
+          onClick={() => handleNavClick("#book")}
+          className="mt-4 rounded-[6px] bg-[#E56515] px-8 py-3 font-semibold text-white transition-colors duration-200 hover:bg-[#c8570f]"
+        >
+          Book a Call
+        </button>
       </div>
-    </header>
+    </>
   )
 }
