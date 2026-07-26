@@ -4,176 +4,205 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Reveal } from "@/components/ui/Reveal"
-import { SectionLabel } from "@/components/ui/SectionLabel"
-import { resume, siteCopy } from "@/lib/resume"
+import emailjs from "@emailjs/browser"
 
-const contactSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Enter a valid email"),
-  projectType: z.string().min(1, "Select a project type"),
-  budget: z.string().min(1, "Select a budget range"),
-  message: z.string().min(10, "Message should be at least 10 characters"),
+// ─── EmailJS credentials (public-safe, intentionally hardcoded) ───
+const EMAILJS_SERVICE_ID = "service_pidb3u7"
+const EMAILJS_TEMPLATE_ID = "template_2m0qn2h"
+const EMAILJS_PUBLIC_KEY = "6iPRjdnPCjMh0c_y1"
+// ─────────────────────────────────────────────────────────────────
+
+const schema = z.object({
+  from_name: z.string().min(2, "Name must be at least 2 characters"),
+  from_email: z.string().email("Please enter a valid email"),
+  project_type: z.string().min(1, "Please select a project type"),
+  budget: z.string().min(1, "Please select a budget range"),
+  message: z.string().min(20, "Message must be at least 20 characters"),
 })
 
-type ContactFormValues = z.infer<typeof contactSchema>
+type FormValues = z.infer<typeof schema>
+
+type Status = "idle" | "loading" | "success" | "error"
 
 export function ContactForm() {
-  const { contact } = siteCopy
-  const [error, setError] = useState<string | null>(null)
+  const [status, setStatus] = useState<Status>("idle")
+
   const {
     register,
     handleSubmit,
-    setValue,
     reset,
-    formState: { errors, isSubmitting },
-  } = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      projectType: "",
-      budget: "",
-      message: "",
-    },
-  })
+    formState: { errors },
+  } = useForm<FormValues>({ resolver: zodResolver(schema) })
 
-  const onSubmit = async (values: ContactFormValues) => {
-    setError(null)
+  const onSubmit = async (data: FormValues) => {
+    setStatus("loading")
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      })
-
-      if (!response.ok) {
-        const data = (await response.json().catch(() => null)) as { error?: string } | null
-        throw new Error(data?.error ?? "Failed to send message")
-      }
-
-      toast.success("Message sent — I'll get back to you soon.")
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: data.from_name,
+          from_email: data.from_email,
+          project_type: data.project_type,
+          budget: data.budget,
+          message: data.message,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      )
+      setStatus("success")
       reset()
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Something went wrong"
-      setError(message)
-      toast.error(message)
+      console.error("EmailJS error:", err)
+      setStatus("error")
     }
   }
 
+  const inputBase =
+    "w-full px-4 py-3 bg-white border border-[#CDCDCB] rounded-[6px] text-[#111111] " +
+    "text-sm placeholder:text-[#919599] focus:outline-none focus:border-[#E56515] " +
+    "focus:ring-1 focus:ring-[#E56515] transition-colors duration-150"
+
+  const errorClass = "mt-1 text-xs text-red-500"
+
   return (
-    <section id="contact" className="section-pad bg-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-2 md:gap-16 md:px-6">
-        <Reveal>
-          <SectionLabel className="mb-4">{contact.eyebrow}</SectionLabel>
-          <h2 className="display-tight mb-4 text-3xl font-bold text-ink md:text-4xl">
-            {contact.heading}
-          </h2>
-          <p className="mb-6 text-grey-mid">{contact.body}</p>
-          <a
-            href={`mailto:${resume.meta.contact.email}`}
-            className="font-mono text-sm text-orange-vivid underline-offset-4 hover:underline"
-          >
-            {resume.meta.contact.email}
-          </a>
-        </Reveal>
-
-        <Reveal delayMs={100}>
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
-            <div>
-              <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-ink">
-                Name
-              </label>
-              <Input id="name" autoComplete="name" {...register("name")} />
-              {errors.name ? (
-                <p className="mt-1 text-sm text-destructive">{errors.name.message}</p>
-              ) : null}
-            </div>
-
-            <div>
-              <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
-                Email
-              </label>
-              <Input id="email" type="email" autoComplete="email" {...register("email")} />
-              {errors.email ? (
-                <p className="mt-1 text-sm text-destructive">{errors.email.message}</p>
-              ) : null}
-            </div>
-
-            <div>
-              <label htmlFor="projectType" className="mb-1.5 block text-sm font-medium text-ink">
-                Project type
-              </label>
-              <Select onValueChange={(value) => setValue("projectType", value, { shouldValidate: true })}>
-                <SelectTrigger id="projectType" className="w-full">
-                  <SelectValue placeholder="Select project type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {contact.projectTypes.map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {type}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.projectType ? (
-                <p className="mt-1 text-sm text-destructive">{errors.projectType.message}</p>
-              ) : null}
-            </div>
-
-            <div>
-              <label htmlFor="budget" className="mb-1.5 block text-sm font-medium text-ink">
-                Budget range
-              </label>
-              <Select onValueChange={(value) => setValue("budget", value, { shouldValidate: true })}>
-                <SelectTrigger id="budget" className="w-full">
-                  <SelectValue placeholder="Select budget range" />
-                </SelectTrigger>
-                <SelectContent>
-                  {contact.budgetRanges.map((range) => (
-                    <SelectItem key={range} value={range}>
-                      {range}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.budget ? (
-                <p className="mt-1 text-sm text-destructive">{errors.budget.message}</p>
-              ) : null}
-            </div>
-
-            <div>
-              <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-ink">
-                Message
-              </label>
-              <Textarea id="message" rows={4} {...register("message")} />
-              {errors.message ? (
-                <p className="mt-1 text-sm text-destructive">{errors.message.message}</p>
-              ) : null}
-            </div>
-
-            {error ? <p className="text-sm text-destructive">{error}</p> : null}
-
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="h-11 w-full rounded-md bg-orange-vivid text-white hover:bg-orange-vivid/90 hover:scale-[1.02]"
+    <section id="contact" className="scroll-mt-20 bg-white py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2">
+          <div>
+            <p className="mb-4 text-sm font-medium tracking-widest text-[#919599] uppercase">
+              Contact
+            </p>
+            <h2 className="mb-6 text-4xl font-bold text-[#111111]">
+              Prefer async? Drop me a message.
+            </h2>
+            <p className="mb-6 leading-relaxed text-[#919599]">
+              Tell me about the product, timeline, and budget. I&apos;ll reply within one
+              business day.
+            </p>
+            <a
+              href="mailto:khurramzaman2001@gmail.com"
+              className="font-medium text-[#E56515] hover:underline"
             >
-              {isSubmitting ? "Sending…" : "Send message"}
-            </Button>
-          </form>
-        </Reveal>
+              khurramzaman2001@gmail.com
+            </a>
+          </div>
+
+          <div>
+            {status === "success" ? (
+              <div className="flex flex-col items-center justify-center gap-4 rounded-[12px] border border-[#CDCDCB] py-16 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-xl text-green-600">
+                  ✓
+                </div>
+                <h3 className="text-lg font-semibold text-[#111111]">Message sent!</h3>
+                <p className="max-w-xs text-sm text-[#919599]">
+                  Thanks for reaching out. I&apos;ll get back to you within one business day.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-2 text-sm text-[#E56515] hover:underline"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-[#111111]">
+                    Name
+                  </label>
+                  <input
+                    {...register("from_name")}
+                    placeholder="Your full name"
+                    className={inputBase}
+                  />
+                  {errors.from_name ? (
+                    <p className={errorClass}>{errors.from_name.message}</p>
+                  ) : null}
+                </div>
+
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-[#111111]">
+                    Email
+                  </label>
+                  <input
+                    {...register("from_email")}
+                    type="email"
+                    placeholder="you@company.com"
+                    className={inputBase}
+                  />
+                  {errors.from_email ? (
+                    <p className={errorClass}>{errors.from_email.message}</p>
+                  ) : null}
+                </div>
+
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-[#111111]">
+                    Project type
+                  </label>
+                  <select {...register("project_type")} className={inputBase}>
+                    <option value="">Select project type</option>
+                    <option value="New SaaS">New SaaS</option>
+                    <option value="AI Integration">AI Integration</option>
+                    <option value="Existing App">Existing App</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  {errors.project_type ? (
+                    <p className={errorClass}>{errors.project_type.message}</p>
+                  ) : null}
+                </div>
+
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-[#111111]">
+                    Budget range
+                  </label>
+                  <select {...register("budget")} className={inputBase}>
+                    <option value="">Select budget range</option>
+                    <option value="Under $1k">&lt;$1k</option>
+                    <option value="$1k–$5k">$1k–$5k</option>
+                    <option value="$5k–$15k">$5k–$15k</option>
+                    <option value="$15k+">$15k+</option>
+                    <option value="Let's discuss">Let&apos;s discuss</option>
+                  </select>
+                  {errors.budget ? (
+                    <p className={errorClass}>{errors.budget.message}</p>
+                  ) : null}
+                </div>
+
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-[#111111]">
+                    Message
+                  </label>
+                  <textarea
+                    {...register("message")}
+                    rows={5}
+                    placeholder="Tell me about your project, timeline, and any specific requirements..."
+                    className={`${inputBase} resize-none`}
+                  />
+                  {errors.message ? (
+                    <p className={errorClass}>{errors.message.message}</p>
+                  ) : null}
+                </div>
+
+                {status === "error" ? (
+                  <div className="rounded-[6px] border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+                    Something went wrong. Please try emailing directly at
+                    khurramzaman2001@gmail.com
+                  </div>
+                ) : null}
+
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full rounded-[6px] bg-[#E56515] py-3.5 font-semibold text-white transition-colors duration-200 hover:bg-[#c8570f] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {status === "loading" ? "Sending…" : "Send message"}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   )

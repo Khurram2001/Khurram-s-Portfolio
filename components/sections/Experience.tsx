@@ -19,10 +19,7 @@ export function Experience() {
         <div>
           {resume.experience.map((entry, index) => (
             <Reveal key={`${entry.company}-${entry.period}`} delayMs={(index % 3) * 100 as 0 | 100 | 200}>
-              <TimelineItem
-                entry={entry}
-                isLast={index === resume.experience.length - 1}
-              />
+              <TimelineItem entry={entry} />
             </Reveal>
           ))}
         </div>

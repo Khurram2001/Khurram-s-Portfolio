@@ -1,80 +1,65 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { useEffect } from "react"
-import Script from "next/script"
-import { Reveal } from "@/components/ui/Reveal"
-import { SectionLabel } from "@/components/ui/SectionLabel"
+import { getCalApi } from "@calcom/embed-react"
 import { siteCopy } from "@/lib/resume"
 
-const calLink = process.env.NEXT_PUBLIC_CAL_LINK ?? "khurramzaman"
-
-declare global {
-  interface Window {
-    Cal?: ((...args: unknown[]) => void) & {
-      q?: unknown[]
-      loaded?: boolean
-    }
+const Cal = dynamic(
+  () => import("@calcom/embed-react").then((m) => m.default),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[600px] animate-pulse rounded-[12px] bg-[#F8F8F8]" />
+    ),
   }
-}
+)
 
 export function BookMeeting() {
   const { bookMeeting } = siteCopy
 
   useEffect(() => {
-    const initCal = () => {
-      if (typeof window.Cal !== "function") return
-      window.Cal("init", { origin: "https://cal.com" })
-      window.Cal("inline", {
-        elementOrSelector: "#cal-embed",
-        calLink,
+    ;(async function () {
+      const cal = await getCalApi({ namespace: "portfolio" })
+      cal("ui", {
+        theme: "light",
+        styles: { branding: { brandColor: "#E56515" } },
+        hideEventTypeDetails: false,
         layout: "month_view",
       })
-    }
-
-    if (typeof window.Cal === "function") {
-      initCal()
-    } else {
-      window.addEventListener("cal:loaded", initCal)
-      return () => window.removeEventListener("cal:loaded", initCal)
-    }
+    })()
   }, [])
 
   return (
-    <section id="book" className="section-pad bg-surface">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-2 md:gap-12 md:px-6">
-        <Reveal>
-          <SectionLabel className="mb-4">{bookMeeting.eyebrow}</SectionLabel>
-          <h2 className="display-tight mb-4 text-3xl font-bold text-ink md:text-4xl">
-            {bookMeeting.heading}
-          </h2>
-          <p className="mb-6 text-grey-mid">{bookMeeting.body}</p>
-          <ul className="flex flex-col gap-3">
-            {bookMeeting.expectations.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-ink">
-                <span className="mt-2 size-2 shrink-0 rounded-full bg-orange-vivid" aria-hidden />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+    <section id="book" className="scroll-mt-20 bg-[#F8F8F8] py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2">
+          <div>
+            <p className="mb-4 text-sm font-medium tracking-widest text-[#919599] uppercase">
+              {bookMeeting.eyebrow}
+            </p>
+            <h2 className="mb-6 text-4xl font-bold text-[#111111]">{bookMeeting.heading}</h2>
+            <p className="mb-8 text-base leading-relaxed text-[#919599]">{bookMeeting.body}</p>
+            <ul className="space-y-3">
+              {bookMeeting.expectations.map((item) => (
+                <li key={item} className="flex items-center gap-3 text-[#111111]">
+                  <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#E56515]" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <Reveal delayMs={100}>
-          <div
-            id="cal-embed"
-            className="h-[600px] w-full overflow-y-auto rounded-xl border border-grey-light bg-white"
-            data-cal-link={calLink}
-            data-cal-config='{"layout":"month_view"}'
-          />
-        </Reveal>
+          <div className="overflow-hidden rounded-[12px] border border-[#CDCDCB]">
+            <Cal
+              namespace="portfolio"
+              calLink="khurramzaman/15min"
+              style={{ width: "100%", height: "600px", overflow: "scroll" }}
+              config={{ layout: "month_view" }}
+            />
+          </div>
+        </div>
       </div>
-
-      <Script
-        src="https://app.cal.com/embed/embed.js"
-        strategy="lazyOnload"
-        onLoad={() => {
-          window.dispatchEvent(new Event("cal:loaded"))
-        }}
-      />
     </section>
   )
 }

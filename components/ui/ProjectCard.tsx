@@ -1,4 +1,3 @@
-import { ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { ProjectEntry } from "@/lib/resume"
 
@@ -15,18 +14,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         className
       )}
     >
-      <div className="flex items-start justify-between gap-4">
-        <h3 className="text-2xl font-bold text-ink">{project.name}</h3>
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-md p-2 text-grey-mid transition-colors hover:bg-surface hover:text-orange-vivid"
-          aria-label={`Open ${project.name} (opens in new tab)`}
-        >
-          <ExternalLink className="size-5" />
-        </a>
-      </div>
+      <h3 className="text-2xl font-bold text-ink">{project.name}</h3>
 
       <ul className="flex flex-wrap gap-2">
         {project.stack.map((tech) => (
@@ -44,6 +32,24 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
           <li key={bullet}>{bullet}</li>
         ))}
       </ul>
+
+      <a
+        href={project.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-[#E56515] hover:underline"
+      >
+        Visit project
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path
+            d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </a>
     </article>
   )
 }

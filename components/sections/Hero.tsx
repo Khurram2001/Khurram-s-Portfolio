@@ -1,7 +1,6 @@
 import { ArrowDown, ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/layout/Navbar"
 import { AnchorLink } from "@/components/ui/AnchorLink"
-import { Button } from "@/components/ui/button"
 import { MetricCounter } from "@/components/ui/MetricCounter"
 import { SectionLabel } from "@/components/ui/SectionLabel"
 import { siteCopy } from "@/lib/resume"
@@ -26,39 +25,31 @@ export function Hero() {
         <p className="prose-width mt-6 text-base text-grey-mid md:text-lg">{hero.sub}</p>
 
         <div className="mt-8 flex flex-wrap gap-4">
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="rounded-md border-grey-light bg-white hover:bg-surface"
+          <AnchorLink
+            href="#book"
+            className="inline-flex items-center gap-2 rounded-[6px] bg-[#E56515] px-6 py-3 font-semibold text-white transition-colors duration-200 hover:scale-[1.02] hover:bg-[#c8570f] active:scale-[0.98]"
           >
-            <AnchorLink href="#work" className="inline-flex items-center gap-2">
-              {hero.primaryCta}
-              <ArrowDown className="size-4" />
-            </AnchorLink>
-          </Button>
-          <Button
-            asChild
-            size="lg"
-            className="rounded-md bg-orange-vivid text-white transition-[background-color,transform] duration-150 hover:scale-[1.02] hover:bg-orange-vivid/90"
+            {hero.secondaryCta}
+            <ArrowRight className="size-4" />
+          </AnchorLink>
+          <AnchorLink
+            href="#work"
+            className="inline-flex items-center gap-2 rounded-[6px] border border-[#919599] px-6 py-3 font-semibold text-[#111111] transition-colors duration-200 hover:border-[#E56515] hover:text-[#E56515]"
           >
-            <AnchorLink href="#book" className="inline-flex items-center gap-2">
-              {hero.secondaryCta}
-              <ArrowRight className="size-4" />
-            </AnchorLink>
-          </Button>
+            {hero.primaryCta}
+            <ArrowDown className="size-4" />
+          </AnchorLink>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-8 border-t border-grey-light pt-10 sm:grid-cols-3">
-          {hero.metrics.map((metric) => (
-            <MetricCounter
-              key={metric.label}
-              value={metric.value}
-              suffix={metric.suffix}
-              prefix={"prefix" in metric ? metric.prefix : ""}
-              label={metric.label}
-            />
-          ))}
+        <div className="mt-12 grid grid-cols-1 divide-y divide-[#CDCDCB] border-t border-[#CDCDCB] pt-12 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          <MetricCounter target={700} suffix="+" label="Active Users" />
+          <MetricCounter target={5} label="SaaS Products" />
+          <MetricCounter
+            target={60}
+            prefix="~"
+            suffix="%"
+            label="Dev Time Saved for Clients"
+          />
         </div>
       </div>
     </section>

@@ -1,13 +1,12 @@
 import { Reveal } from "@/components/ui/Reveal"
 import { SectionLabel } from "@/components/ui/SectionLabel"
-import { SkillBadge } from "@/components/ui/SkillBadge"
 import { resume, siteCopy, type SkillCategory } from "@/lib/resume"
 
 export function TechStack() {
   const { techStack } = siteCopy
 
   return (
-    <section id="stack" className="section-pad bg-white">
+    <section id="stack" className="section-pad overflow-x-hidden bg-white">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <Reveal>
           <SectionLabel className="mb-4">{techStack.eyebrow}</SectionLabel>
@@ -24,9 +23,14 @@ export function TechStack() {
             return (
               <Reveal key={category.key} delayMs={(index % 3) * 100 as 0 | 100 | 200}>
                 <SectionLabel className="mb-4">{category.label}</SectionLabel>
-                <div className="flex flex-wrap gap-2">
+                <div className="mt-3 flex flex-wrap gap-2">
                   {skills.map((skill) => (
-                    <SkillBadge key={skill}>{skill}</SkillBadge>
+                    <span
+                      key={skill}
+                      className="whitespace-nowrap rounded-[4px] border border-[#CDCDCB] bg-[#F8F8F8] px-3 py-1.5 font-mono text-sm text-[#111111] transition-colors duration-150 hover:border-[#E56515] hover:bg-[#FBA45C]/10"
+                    >
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </Reveal>

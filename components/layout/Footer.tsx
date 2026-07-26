@@ -29,7 +29,7 @@ export function Footer() {
           </AnchorLink>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <a
             href={resume.meta.contact.github}
             target="_blank"
@@ -48,10 +48,13 @@ export function Footer() {
           >
             <Linkedin className="size-5" />
           </a>
-          <span className="inline-flex items-center gap-2 rounded-sm border border-grey-light bg-surface px-3 py-1.5 text-xs text-ink">
-            <span className="size-2 rounded-full bg-semantic-success" aria-hidden />
+          <div className="flex items-center gap-2 text-sm font-medium text-[#111111]">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+            </span>
             {siteCopy.footer.availability}
-          </span>
+          </div>
         </div>
       </div>
     </footer>

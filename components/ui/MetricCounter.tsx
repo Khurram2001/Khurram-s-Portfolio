@@ -1,70 +1,52 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { cn } from "@/lib/utils"
-import { useReducedMotion } from "@/hooks/use-reduced-motion"
+import { useInView } from "react-intersection-observer"
 
 interface MetricCounterProps {
-  value: number
-  label: string
-  suffix?: string
+  target: number
   prefix?: string
-  className?: string
-  durationMs?: number
+  suffix?: string
+  label: string
+  duration?: number
 }
 
 export function MetricCounter({
-  value,
-  label,
-  suffix = "",
+  target,
   prefix = "",
-  className,
-  durationMs = 1600,
+  suffix = "",
+  label,
+  duration = 2000,
 }: MetricCounterProps) {
-  const [display, setDisplay] = useState(0)
-  const reducedMotion = useReducedMotion()
-  const started = useRef(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const [count, setCount] = useState(0)
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 })
+  const hasAnimated = useRef(false)
 
   useEffect(() => {
-    if (reducedMotion) {
-      setDisplay(value)
-      return
+    if (!inView || hasAnimated.current) return
+    hasAnimated.current = true
+
+    const startTime = performance.now()
+    const step = (currentTime: number) => {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.floor(eased * target))
+      if (progress < 1) requestAnimationFrame(step)
     }
-
-    const el = ref.current
-    if (!el) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting || started.current) return
-        started.current = true
-
-        const start = performance.now()
-        const tick = (now: number) => {
-          const progress = Math.min((now - start) / durationMs, 1)
-          const eased = 1 - Math.pow(1 - progress, 3)
-          setDisplay(Math.round(value * eased))
-          if (progress < 1) requestAnimationFrame(tick)
-        }
-        requestAnimationFrame(tick)
-        observer.disconnect()
-      },
-      { threshold: 0.4 }
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [durationMs, reducedMotion, value])
+    requestAnimationFrame(step)
+  }, [inView, target, duration])
 
   return (
-    <div ref={ref} className={cn("flex flex-col gap-1", className)}>
-      <p className="display-tight font-display text-4xl font-bold text-orange-vivid md:text-5xl">
+    <div ref={ref} className="flex flex-col items-center gap-1 py-6 sm:py-0">
+      <span className="text-5xl font-black text-[#E56515] tabular-nums">
         {prefix}
-        {display}
+        {count}
         {suffix}
-      </p>
-      <p className="text-sm text-grey-mid">{label}</p>
+      </span>
+      <span className="text-center text-sm font-medium tracking-widest text-[#919599] uppercase">
+        {label}
+      </span>
     </div>
   )
 }
