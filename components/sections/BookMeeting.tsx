@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import Script from "next/script"
 import { Reveal } from "@/components/ui/Reveal"
 import { SectionLabel } from "@/components/ui/SectionLabel"
@@ -7,8 +8,36 @@ import { siteCopy } from "@/lib/resume"
 
 const calLink = process.env.NEXT_PUBLIC_CAL_LINK ?? "khurramzaman"
 
+declare global {
+  interface Window {
+    Cal?: ((...args: unknown[]) => void) & {
+      q?: unknown[]
+      loaded?: boolean
+    }
+  }
+}
+
 export function BookMeeting() {
   const { bookMeeting } = siteCopy
+
+  useEffect(() => {
+    const initCal = () => {
+      if (typeof window.Cal !== "function") return
+      window.Cal("init", { origin: "https://cal.com" })
+      window.Cal("inline", {
+        elementOrSelector: "#cal-embed",
+        calLink,
+        layout: "month_view",
+      })
+    }
+
+    if (typeof window.Cal === "function") {
+      initCal()
+    } else {
+      window.addEventListener("cal:loaded", initCal)
+      return () => window.removeEventListener("cal:loaded", initCal)
+    }
+  }, [])
 
   return (
     <section id="book" className="section-pad bg-surface">
@@ -31,6 +60,7 @@ export function BookMeeting() {
 
         <Reveal delayMs={100}>
           <div
+            id="cal-embed"
             className="h-[600px] w-full overflow-y-auto rounded-xl border border-grey-light bg-white"
             data-cal-link={calLink}
             data-cal-config='{"layout":"month_view"}'
@@ -41,6 +71,9 @@ export function BookMeeting() {
       <Script
         src="https://app.cal.com/embed/embed.js"
         strategy="lazyOnload"
+        onLoad={() => {
+          window.dispatchEvent(new Event("cal:loaded"))
+        }}
       />
     </section>
   )
