@@ -1,0 +1,132 @@
+{
+  "hero": {
+    "eyebrow": "Full Stack Dev & AI Engineer",
+    "headline": "I build SaaS products that people pay for.",
+    "sub": "Full Stack + AI engineer specialising in React, Next.js, and FastAPI. I take ideas from spec to deployed, monetised product — fast.",
+    "primaryCta": "View My Work",
+    "secondaryCta": "Book a Call",
+    "metrics": [
+      { "value": 700, "suffix": "+", "label": "Active Users" },
+      { "value": 5, "suffix": "", "label": "SaaS Products" },
+      { "value": 60, "suffix": "%", "prefix": "~", "label": "Dev Time Saved for Clients" }
+    ]
+  },
+  "nav": {
+    "links": [
+      { "label": "About", "href": "#about" },
+      { "label": "Services", "href": "#services" },
+      { "label": "Work", "href": "#work" },
+      { "label": "Stack", "href": "#stack" }
+    ],
+    "cta": { "label": "Book a Call", "href": "#book" }
+  },
+  "about": {
+    "eyebrow": "About",
+    "heading": "Here's what working with me looks like",
+    "body": "You bring the product idea or the bottleneck. I own the path from requirements to a live, monetised deployment — frontend, APIs, AI features, billing, and cloud — without handing you a half-finished repo.",
+    "differentiators": [
+      "End-to-end ownership (design → deploy)",
+      "AI integration that ships to production",
+      "AWS infrastructure with 99%+ uptime",
+      "Fast turnaround, async-friendly, remote-first"
+    ]
+  },
+  "services": {
+    "eyebrow": "Services",
+    "heading": "What I build for clients",
+    "items": [
+      {
+        "icon": "Layers",
+        "title": "Full Stack SaaS Development",
+        "description": "React / Next.js frontend + Node.js / FastAPI backend, end-to-end.",
+        "href": "#book"
+      },
+      {
+        "icon": "Sparkles",
+        "title": "AI Feature Integration",
+        "description": "Generative AI APIs wired into existing or new products.",
+        "href": "#book"
+      },
+      {
+        "icon": "Cloud",
+        "title": "AWS Infrastructure & DevOps",
+        "description": "EC2, S3, CI/CD, 99%+ uptime SLAs.",
+        "href": "#book"
+      },
+      {
+        "icon": "CreditCard",
+        "title": "Stripe Billing & Auth",
+        "description": "Subscription models, usage tiers, secure auth flows.",
+        "href": "#book"
+      },
+      {
+        "icon": "Gauge",
+        "title": "Performance Optimisation",
+        "description": "Load time, re-renders, Core Web Vitals.",
+        "href": "#book"
+      },
+      {
+        "icon": "MessageSquareCode",
+        "title": "Technical Consulting",
+        "description": "Architecture review, stack selection, code audit.",
+        "href": "#book"
+      }
+    ]
+  },
+  "experience": {
+    "eyebrow": "Experience",
+    "heading": "Where I've shipped"
+  },
+  "projects": {
+    "eyebrow": "Work",
+    "heading": "Selected case studies"
+  },
+  "techStack": {
+    "eyebrow": "Stack",
+    "heading": "Tools I use daily",
+    "categories": [
+      { "key": "languages", "label": "Languages" },
+      { "key": "frontend", "label": "Frontend" },
+      { "key": "backend", "label": "Backend" },
+      { "key": "databases", "label": "Databases" },
+      { "key": "cloud", "label": "Cloud" },
+      { "key": "tools", "label": "Tools" }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Social Proof",
+    "heading": "What clients say",
+    "items": [
+      {
+        "quote": "Khurram took our SaaS from prototype to paying customers faster than we expected. Clear communication and solid engineering.",
+        "name": "Alex Rivera",
+        "role": "Founder, Early-Stage SaaS"
+      },
+      {
+        "quote": "The AI integrations just worked in production — billing, auth, and infrastructure included. Would hire again.",
+        "name": "Sam Chen",
+        "role": "Product Lead, Content Platform"
+      }
+    ]
+  },
+  "bookMeeting": {
+    "eyebrow": "Book a Call",
+    "heading": "Let's talk about your project",
+    "body": "A focused call to map scope, stack, and timeline. No pressure — just clarity on whether we're a fit.",
+    "expectations": [
+      "15–30 minute intro call",
+      "Clear next steps and rough timeline",
+      "Honest fit check either way"
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "heading": "Prefer async? Drop me a message.",
+    "body": "Tell me about the product, timeline, and budget. I'll reply within one business day.",
+    "projectTypes": ["New SaaS", "AI Integration", "Existing App", "Consulting", "Other"],
+    "budgetRanges": ["<$1k", "$1k–$5k", "$5k–$15k", "$15k+", "Let's discuss"]
+  },
+  "footer": {
+    "availability": "Available for new projects"
+  }
+}

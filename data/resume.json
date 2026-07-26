@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "name": "Khurram Zaman",
+    "title": "Full Stack Developer & AI Integration Engineer",
+    "summary": "Full Stack Developer and AI Integration Engineer with experience building and shipping production-grade web and AI-powered SaaS platforms using React, Next.js, Node.js, FastAPI, and PostgreSQL. Proven expertise integrating Generative AI APIs and RESTful APIs into scalable cloud systems on AWS (EC2, S3) and Firebase — delivering end-to-end solutions across the full software development lifecycle in Agile environments.",
+    "contact": {
+      "phone": "+92-305-352-9034",
+      "email": "khurramzaman2001@gmail.com",
+      "linkedin": "https://linkedin.com/in/khurramzaman-developer",
+      "github": "https://github.com/Khurram2001",
+      "portfolio": "https://khurramsportfolio.netlify.app"
+    }
+  },
+  "skills": {
+    "languages": ["JavaScript (ES6+)", "TypeScript", "Python", "SQL"],
+    "frontend": ["React.js", "Next.js", "Redux", "Tailwind CSS"],
+    "backend": ["Node.js", "Express.js", "FastAPI", "RESTful APIs", "JWT", "OAuth 2.0"],
+    "databases": ["PostgreSQL", "MongoDB", "Firebase Firestore", "Prisma ORM"],
+    "cloud": ["AWS (EC2, S3)", "Firebase Hosting", "Docker", "GitHub Actions", "Vercel"],
+    "tools": ["Stripe", "Postman", "Jest", "Git", "Google Analytics"]
+  },
+  "experience": [
+    {
+      "role": "Full Stack Engineer",
+      "company": "Infini8 AI",
+      "location": "Remote, England",
+      "period": "Nov 2025 – Present",
+      "bullets": [
+        "Integrated 3+ Generative AI APIs for video, caption, and image generation into a production content pipeline, cutting manual content production time by ~60% for 500+ active paying subscribers.",
+        "Built and maintained the React 19 frontend across multiple feature modules, converting Figma designs into responsive production interfaces within an Agile cross-functional team.",
+        "Managed Firebase infrastructure with CI/CD pipelines across all production releases, keeping uptime consistently above 99%."
+      ]
+    },
+    {
+      "role": "Junior Full Stack Developer",
+      "company": "NextGenXolution",
+      "location": "Wah Cantt, Pakistan",
+      "period": "Aug 2025 – Nov 2025",
+      "bullets": [
+        "Developed and shipped frontend features across multiple web application modules using React and TypeScript, collaborating within an Agile team on a live client product.",
+        "Architected RESTful APIs in Node.js, Express.js, and MongoDB covering auth middleware, CRUD operations, and wrote full API documentation for team-wide use.",
+        "Built a media upload pipeline handling image and video processing reliably for 300+ active users."
+      ]
+    },
+    {
+      "role": "Freelance Full Stack Developer",
+      "company": "Self-Employed",
+      "location": "Remote",
+      "period": "Feb 2025 – Aug 2025",
+      "bullets": [
+        "Delivered 4+ full-stack SaaS projects end-to-end for startup and SME clients, handling everything from requirements and system design through to testing and AWS deployment.",
+        "Integrated Generative AI and third-party APIs into client platforms, adding intelligent automation features that directly improved monetisation.",
+        "Set up and managed AWS infrastructure (EC2, S3) for each client, reducing hosting costs by up to 40% compared to their previous setups."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Data Lumio",
+      "stack": ["React", "FastAPI", "Firebase", "Stripe", "AWS S3"],
+      "url": "https://datalumio.co",
+      "bullets": [
+        "Built the qualitative and quantitative analysis module as Frontend and AI Integration Engineer, letting users upload CSV/XLSX files and get structured AI insight reports with no code required.",
+        "Wired together FastAPI endpoints, AWS S3 for file storage, Firebase Auth for user sessions, and Stripe for subscription billing into a single cohesive end-to-end pipeline.",
+        "Cut manual data analysis time by ~70% — from file upload to exportable report in under 3 minutes."
+      ]
+    },
+    {
+      "name": "Audit AI",
+      "stack": ["React", "Node.js", "MongoDB", "Gemini API"],
+      "url": "https://audit-ai-analyzer.vercel.app",
+      "bullets": [
+        "Built a full-stack smart contract security tool where developers paste Solidity code and get an instant vulnerability report with suggested fixes in a downloadable file.",
+        "Integrated Gemini API to detect reentrancy attacks, integer overflow, and access control issues, with a severity-tiered UI (Critical / High / Medium / Low).",
+        "Brought audit turnaround from days to under 30 seconds at zero cost."
+      ]
+    },
+    {
+      "name": "Maqaam",
+      "stack": ["Next.js", "Node.js", "PostgreSQL", "AWS EC2"],
+      "url": "https://maqaam.me",
+      "bullets": [
+        "Built a non-profit community platform for Muslims to find and post local Islamic events, with secure sign-up, map-driven event listings, and an admin panel for moderation.",
+        "Implemented geo-pinned event listings on OpenStreetMap, a normalised PostgreSQL schema with geo-filtering, and JWT-secured role-based access.",
+        "Launched a free, globally accessible platform serving Muslim communities across multiple countries."
+      ]
+    },
+    {
+      "name": "Viva Bot",
+      "stack": ["Next.js", "MongoDB", "Stripe"],
+      "url": "https://admin.meetingwithteacher.com",
+      "bullets": [
+        "Contributed to a full-stack research and interview prep tool where users upload PDFs and ask questions against the content, with AI-driven mock interview sessions.",
+        "Fixed 15+ bugs across session management, auth flows, and the admin dashboard.",
+        "Dropped average load time from ~3.2s to under 2s and reduced session drop-off by ~35%."
+      ]
+    },
+    {
+      "name": "PAPU.AI",
+      "stack": ["React", "FastAPI", "Firebase", "Stripe"],
+      "url": "https://papu.ai",
+      "bullets": [
+        "Built the frontend and handled AI integrations on a platform where content creators generate images, avatars, videos, and captions from a single workspace.",
+        "Integrated multiple Generative AI APIs through FastAPI and wired in Stripe billing across subscription and pay-per-use credit tiers.",
+        "Platform launched fully monetised with 200+ paying users in the first month."
+      ]
+    }
+  ],
+  "education": {
+    "degree": "Bachelor of Science in Computer Science",
+    "institution": "University of Wah, Punjab, Pakistan",
+    "period": "Sep 2021 – Aug 2025",
+    "gpa": "3.27 / 4.0",
+    "coursework": ["Data Structures & Algorithms", "Database Systems", "Web Engineering", "Software Engineering", "Operating Systems", "Computer Networks"]
+  }
+}
