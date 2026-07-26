@@ -1,6 +1,4 @@
-import { ArrowDown, ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/layout/Navbar"
-import { AnchorLink } from "@/components/ui/AnchorLink"
 import { MetricCounter } from "@/components/ui/MetricCounter"
 import { SectionLabel } from "@/components/ui/SectionLabel"
 import { siteCopy } from "@/lib/resume"
@@ -25,20 +23,21 @@ export function Hero() {
         <p className="prose-width mt-6 text-base text-grey-mid md:text-lg">{hero.sub}</p>
 
         <div className="mt-8 flex flex-wrap gap-4">
-          <AnchorLink
+          {/* Primary */}
+          <a
             href="#book"
-            className="inline-flex items-center gap-2 rounded-[6px] bg-[#E56515] px-6 py-3 font-semibold text-white transition-colors duration-200 hover:scale-[1.02] hover:bg-[#c8570f] active:scale-[0.98]"
+            className="inline-flex items-center gap-2 rounded-[6px] bg-[#E56515] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-[#c8570f] active:scale-[0.99]"
           >
-            {hero.secondaryCta}
-            <ArrowRight className="size-4" />
-          </AnchorLink>
-          <AnchorLink
+            Book a Call
+          </a>
+
+          {/* Secondary */}
+          <a
             href="#work"
-            className="inline-flex items-center gap-2 rounded-[6px] border border-[#919599] px-6 py-3 font-semibold text-[#111111] transition-colors duration-200 hover:border-[#E56515] hover:text-[#E56515]"
+            className="inline-flex items-center gap-2 rounded-[6px] border border-[#919599] px-6 py-3 text-sm font-semibold text-[#111111] transition-colors duration-200 hover:border-[#E56515] hover:text-[#E56515]"
           >
-            {hero.primaryCta}
-            <ArrowDown className="size-4" />
-          </AnchorLink>
+            View My Work
+          </a>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-0 divide-y divide-[#CDCDCB] border-t border-[#CDCDCB] pt-12 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
