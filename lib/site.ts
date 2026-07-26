@@ -7,13 +7,13 @@ export const siteUrl =
   "https://khurramsportfolio.netlify.app"
 
 export const siteMetadata = {
-  title: "Khurram Zaman — Full Stack AI Engineer",
+  title: "Khurram Zaman — Full Stack Developer & AI Integration Engineer",
   description:
-    "Specializing in custom RAG pipelines, production-grade AI integrations, and high-performance full-stack cloud applications.",
+    "Full Stack + AI engineer specialising in React, Next.js, and FastAPI. I take ideas from spec to deployed, monetised product — fast.",
   ogImage: {
     url: "/opengraph-image.png",
     width: 512,
     height: 512,
-    alt: "Khurram Zaman — Full Stack AI Engineer",
+    alt: "Khurram Zaman — Full Stack Developer & AI Integration Engineer",
   },
 } as const

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
+import { LenisProvider } from "@/components/providers/LenisProvider"
+import { Toaster } from "@/components/ui/sonner"
 import { siteMetadata, siteUrl } from "@/lib/site"
 import "./globals.css"
 
@@ -7,17 +9,19 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  weight: ["400", "500", "700", "800", "900"],
 })
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
   display: "swap",
+  weight: ["400", "500"],
 })
 
 export const viewport: Viewport = {
-  themeColor: "#010102",
-  colorScheme: "dark",
+  themeColor: "#F8F8F8",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 }
@@ -33,13 +37,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Khurram Zaman", url: siteUrl }],
   creator: "Khurram Zaman",
   keywords: [
-    "Full Stack Engineer",
-    "AI Integration",
-    "RAG pipelines",
+    "Full Stack Developer",
+    "AI Integration Engineer",
     "Next.js",
+    "React",
     "FastAPI",
-    "cloud applications",
-    "Generative AI",
+    "SaaS",
+    "Stripe",
+    "AWS",
     "Khurram Zaman",
   ],
   robots: {
@@ -99,11 +104,14 @@ export default function RootLayout({
       <body>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-orange-vivid focus:px-4 focus:py-2 focus:text-white"
         >
           Skip to content
         </a>
-        {children}
+        <LenisProvider>
+          {children}
+          <Toaster />
+        </LenisProvider>
       </body>
     </html>
   )
